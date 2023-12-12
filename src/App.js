@@ -88,14 +88,14 @@ export default function App() {
         {/* Total balance */}
         <DisplayBalance
           label="Your Balance:"
-          value={totalIncome - totalExpense}
+          value={`$ ${totalIncome - totalExpense}`}
           size="tiny"
           color="black"
         />
         {/* Income and outgoing balance */}
         <DisplayBalances
-          totalIncome={totalIncome}
-          totalExpense={totalExpense}
+          totalIncome={`$ ${totalIncome}`}
+          totalExpense={`$ ${totalExpense}`}
         />
         {/* Expense history */}
         <MainHeader title={"History"} type="h3" />
