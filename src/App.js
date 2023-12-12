@@ -9,6 +9,7 @@ export default function App() {
   return (
     <Container>
       <MainHeader title={"Budget"} />
+      
       {/* Total balance */}
       <DisplayBalance
         label="Your Balance:"
