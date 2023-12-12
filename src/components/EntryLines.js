@@ -5,8 +5,9 @@ export default function EntryLines({
   description = "",
   value = "",
   isExpense = false,
+  deleteEntry,
+  id,
 }) {
-  console.log(isExpense);
   return (
     <Segment color={isExpense ? "red" : "green"}>
       <Grid columns="3" textAlign="right">
@@ -19,7 +20,7 @@ export default function EntryLines({
           </Grid.Column>
           <Grid.Column width={3}>
             <Icon name="edit" bordered />
-            <Icon name="trash" />
+            <Icon name="trash" onClick={() => deleteEntry(id)} />
           </Grid.Column>
         </Grid.Row>
       </Grid>
@@ -31,4 +32,6 @@ EntryLines.propTypes = {
   description: PropTypes.string,
   value: PropTypes.string,
   isExpense: PropTypes.bool | undefined,
+  deleteEntry: PropTypes.func,
+  id: PropTypes.number,
 };
