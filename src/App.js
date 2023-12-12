@@ -47,7 +47,11 @@ export default function App() {
         <DisplayBalances />
         {/* Expense history */}
         <MainHeader title={"History"} type="h3" />
-        <EntryLinesList entries={entries} deleteEntry={deleteEntry} />
+        <EntryLinesList
+          entries={entries}
+          deleteEntry={deleteEntry}
+          onModelOpen={onModelOpen}
+        />
         {/* Form to add new entry */}
         <MainHeader title={"Add new transaction"} type="h3" />
         <NewEntryForm
@@ -59,7 +63,6 @@ export default function App() {
             setValue,
             isExpense,
             setIsExpense,
-            onModelOpen,
           }}
         />
       </Container>

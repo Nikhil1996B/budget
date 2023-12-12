@@ -11,7 +11,6 @@ export default function NewEntryForm({
   setValue,
   isExpense,
   setIsExpense,
-  onModelOpen,
 }) {
   const handleCancel = () => {
     setDescription("");
@@ -38,7 +37,6 @@ export default function NewEntryForm({
           setValue,
           isExpense,
           setIsExpense,
-          onModelOpen,
         }}
       />
       <ButtonSaveOrCancel
@@ -56,6 +54,5 @@ NewEntryForm.propTypes = {
   setValue: PropTypes.func,
   isExpense: PropTypes.bool,
   setIsExpense: PropTypes.func,
-  onModelOpen: PropTypes.func,
   addEntry: PropTypes.func,
 };
