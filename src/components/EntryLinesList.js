@@ -6,6 +6,7 @@ export default function EntryLinesList({
   entries = [],
   deleteEntry,
   onModelOpen,
+  handleEditMode,
 }) {
   return (
     <Container>
@@ -15,6 +16,7 @@ export default function EntryLinesList({
           {...entry}
           deleteEntry={deleteEntry}
           onModelOpen={onModelOpen}
+          handleEditMode={handleEditMode}
         />
       ))}
     </Container>
@@ -25,4 +27,5 @@ EntryLinesList.propTypes = {
   entries: PropTypes.array,
   deleteEntry: PropTypes.func,
   onModelOpen: PropTypes.func,
+  handleEditMode: PropTypes.func,
 };

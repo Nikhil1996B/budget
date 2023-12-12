@@ -8,7 +8,12 @@ export default function EntryLines({
   deleteEntry,
   id,
   onModelOpen,
+  handleEditMode,
 }) {
+  const handleModalOpen = () => {
+    onModelOpen();
+    handleEditMode(id);
+  };
   return (
     <>
       <Segment color={isExpense ? "red" : "green"}>
@@ -21,7 +26,7 @@ export default function EntryLines({
               {value}
             </Grid.Column>
             <Grid.Column width={3}>
-              <Icon name="edit" bordered onClick={onModelOpen} />
+              <Icon name="edit" bordered onClick={handleModalOpen} />
               <Icon name="trash" onClick={() => deleteEntry(id)} />
             </Grid.Column>
           </Grid.Row>
@@ -37,5 +42,6 @@ EntryLines.propTypes = {
   isExpense: PropTypes.bool | undefined,
   deleteEntry: PropTypes.func,
   onModelOpen: PropTypes.func,
+  handleEditMode: PropTypes.func,
   id: PropTypes.number,
 };
