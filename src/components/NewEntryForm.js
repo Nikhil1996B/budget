@@ -1,45 +1,61 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
 import { Form } from "semantic-ui-react";
 import ButtonSaveOrCancel from "./ButtonSaveOrCancel";
+import EntryForm from "./EntryForm";
 
-export default function NewEntryForm({ addEntry }) {
-  const [description, setDescription] = useState("");
-  const [value, setValue] = useState("");
+export default function NewEntryForm({
+  addEntry,
+  description,
+  setDescription,
+  value,
+  setValue,
+  isExpense,
+  setIsExpense,
+  onModelOpen,
+}) {
+  const handleCancel = () => {
+    setDescription("");
+    setValue("");
+    setIsExpense(true);
+  };
 
   const handleNewEntryAdd = () => {
     const newEntry = {
       description,
       value,
+      isExpense,
     };
     addEntry(newEntry);
+    handleCancel();
   };
   return (
     <Form unstackable>
-      <Form.Group>
-        <Form.Input
-          icon="tags"
-          width="12"
-          placeholder="New Shinny thing"
-          label="Description"
-          value={description}
-          onChange={(e) => setDescription(e.target.value)}
-        ></Form.Input>
-        <Form.Input
-          width={4}
-          label="Value"
-          placeholder="100.00"
-          icon="dollar"
-          iconPosition="left"
-          value={value}
-          onChange={(e) => setValue(e.target.value)}
-        ></Form.Input>
-      </Form.Group>
-      <ButtonSaveOrCancel handleNewEntryAdd={handleNewEntryAdd} />
+      <EntryForm
+        {...{
+          description,
+          setDescription,
+          value,
+          setValue,
+          isExpense,
+          setIsExpense,
+          onModelOpen,
+        }}
+      />
+      <ButtonSaveOrCancel
+        handleNewEntryAdd={handleNewEntryAdd}
+        handleCancel={handleCancel}
+      />
     </Form>
   );
 }
 
 NewEntryForm.propTypes = {
+  description: PropTypes.string,
+  setDescription: PropTypes.func,
+  value: PropTypes.string,
+  setValue: PropTypes.func,
+  isExpense: PropTypes.bool,
+  setIsExpense: PropTypes.func,
+  onModelOpen: PropTypes.func,
   addEntry: PropTypes.func,
 };

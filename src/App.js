@@ -4,11 +4,21 @@ import DisplayBalance from "./components/DisplayBalance";
 import DisplayBalances from "./components/DisplayBalances";
 import EntryLinesList from "./components/EntryLinesList";
 import MainHeader from "./components/MainHeader";
+import ModelEdit from "./components/ModelEdit";
 import NewEntryForm from "./components/NewEntryForm";
 import "./styles.css";
 
 export default function App() {
   const [entries, setEntries] = useState(initialEntries);
+
+  // modal entries
+  const [description, setDescription] = useState("");
+  const [value, setValue] = useState("");
+  const [isExpense, setIsExpense] = useState(true);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const handleModelClose = () => setIsOpen(false);
+  const onModelOpen = () => setIsOpen(true);
 
   const deleteEntry = (id) => {
     if (id) {
@@ -23,24 +33,38 @@ export default function App() {
   };
 
   return (
-    <Container>
-      <MainHeader title={"Budget"} />
-      {/* Total balance */}
-      <DisplayBalance
-        label="Your Balance:"
-        value="10000.00"
-        size="tiny"
-        color="black"
-      />
-      {/* Income and outgoing balance */}
-      <DisplayBalances />
-      {/* Expense history */}
-      <MainHeader title={"History"} type="h3" />
-      <EntryLinesList entries={entries} deleteEntry={deleteEntry} />
-      {/* Form to add new entry */}
-      <MainHeader title={"Add new transaction"} type="h3" />
-      <NewEntryForm addEntry={addEntry} />
-    </Container>
+    <>
+      <Container>
+        <MainHeader title={"Budget"} />
+        {/* Total balance */}
+        <DisplayBalance
+          label="Your Balance:"
+          value="10000.00"
+          size="tiny"
+          color="black"
+        />
+        {/* Income and outgoing balance */}
+        <DisplayBalances />
+        {/* Expense history */}
+        <MainHeader title={"History"} type="h3" />
+        <EntryLinesList entries={entries} deleteEntry={deleteEntry} />
+        {/* Form to add new entry */}
+        <MainHeader title={"Add new transaction"} type="h3" />
+        <NewEntryForm
+          addEntry={addEntry}
+          {...{
+            description,
+            setDescription,
+            value,
+            setValue,
+            isExpense,
+            setIsExpense,
+            onModelOpen,
+          }}
+        />
+      </Container>
+      <ModelEdit isOpen={isOpen} handleModelClose={handleModelClose} />
+    </>
   );
 }
 

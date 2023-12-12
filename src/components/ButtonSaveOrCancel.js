@@ -2,12 +2,15 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Button } from "semantic-ui-react";
 
-export default function ButtonSaveOrCancel({ addEntry }) {
+export default function ButtonSaveOrCancel({
+  handleNewEntryAdd,
+  handleCancel,
+}) {
   return (
-    <Button.Group style={{ marginTop: 20 }}>
-      <Button>Cancel</Button>
+    <Button.Group style={{ margin: "20 0" }}>
+      <Button onClick={handleCancel}>Cancel</Button>
       <Button.Or />
-      <Button primary onClick={addEntry}>
+      <Button primary onClick={handleNewEntryAdd}>
         OK
       </Button>
     </Button.Group>
@@ -15,5 +18,6 @@ export default function ButtonSaveOrCancel({ addEntry }) {
 }
 
 ButtonSaveOrCancel.propTypes = {
-  addEntry: PropTypes.func,
+  handleNewEntryAdd: PropTypes.func,
+  handleCancel: PropTypes.func,
 };
