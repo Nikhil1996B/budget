@@ -14,6 +14,11 @@ export default (state = initialEntries, action) => {
       return newEntries;
     case types.POPULATE_ENTRIES:
       return action.payload;
+    case types.POPULATE_ENTRY_DETAILS:
+      newEntries = state.map((entry) =>
+        entry.id === action.payload.id ? action.payload.entry : entry,
+      );
+      return newEntries;
     default:
       return state;
   }

@@ -1,7 +1,7 @@
 import { take, call, put, fork } from "redux-saga/effects";
 import types from "../actions/types";
 import axios from "axios";
-import { populateEntries } from "../actions/entries";
+import { populateEntries, populateEntryDetails } from "../actions/entries";
 // async function fetchInitialData() {
 //   const result = await axios.get("https://t9h6c7-3001.csb.app/entries");
 //   return result.data;
@@ -19,7 +19,7 @@ export function* getEntryDetails(id) {
     axios,
     `https://t9h6c7-3001.csb.app/values/${id}`,
   );
-  console.log(data);
+  yield put(populateEntryDetails(id, data));
 }
 
 export function* getAllEntriesDetails() {
