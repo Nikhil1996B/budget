@@ -1,6 +1,8 @@
+import types from "./types";
+
 export const openModalRedux = () => ({
-  type: "OPEN_MODAL",
+  type: types.OPEN_MODAL,
 });
 export const closeModalRedux = () => ({
-  type: "CLOSE_MODAL",
+  type: types.CLOSE_MODAL,
 });

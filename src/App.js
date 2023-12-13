@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 import { Container } from "semantic-ui-react";
 import DisplayBalance from "./components/DisplayBalance";
 import DisplayBalances from "./components/DisplayBalances";
@@ -8,6 +9,7 @@ import ModelEdit from "./components/ModelEdit";
 import NewEntryForm from "./components/NewEntryForm";
 import "./styles.css";
 import useEntryDetails from "./hooks/useEntryDetails";
+import { getAllEntriesRedux } from "./actions/entries";
 
 export default function App() {
   const {
@@ -30,6 +32,7 @@ export default function App() {
     addEntry,
     onModelOpen,
   } = useEntryDetails();
+  const dispatch = useDispatch();
   useEffect(() => {
     let totalIncome = 0;
     let totalExpense = 0;
@@ -43,6 +46,10 @@ export default function App() {
     setTotalIncome(totalIncome);
     setTotalExpense(totalExpense);
   }, [entries]);
+
+  useEffect(() => {
+    dispatch(getAllEntriesRedux());
+  }, []);
   return (
     <>
       <Container>
