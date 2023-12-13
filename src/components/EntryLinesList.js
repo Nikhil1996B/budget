@@ -1,7 +1,7 @@
 import { Container } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import EntryLines from "./EntryLines";
-
+/* eslint react/prop-types: 0 */
 export default function EntryLinesList({
   entries = [],
   deleteEntry,

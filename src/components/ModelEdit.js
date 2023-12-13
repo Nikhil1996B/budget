@@ -2,18 +2,19 @@ import { Button, Form, Modal } from "semantic-ui-react";
 import PropTypes from "prop-types";
 import EntryForm from "./EntryForm";
 import ButtonSaveOrCancel from "./ButtonSaveOrCancel";
-
+/* eslint react/prop-types: 0 */
 export default function ModelEdit({
   isOpen,
   handleModelClose,
+  handleEntryEdit,
+  handleCancel,
   description,
   setDescription,
   value,
   setValue,
   isExpense,
   setIsExpense,
-  handleCancel,
-  handleEntryEdit,
+  addEntry,
 }) {
   return (
     <Modal open={isOpen} onClose={handleModelClose}>
@@ -28,6 +29,7 @@ export default function ModelEdit({
               setValue,
               isExpense,
               setIsExpense,
+              addEntry,
             }}
           />
           <ButtonSaveOrCancel
@@ -44,14 +46,6 @@ export default function ModelEdit({
 }
 
 ModelEdit.propTypes = {
-  isOpen: PropTypes.bool,
-  handleModelClose: PropTypes.func,
-  description: PropTypes.string,
-  setDescription: PropTypes.func,
-  value: PropTypes.string,
-  setValue: PropTypes.func,
   handleEntryEdit: PropTypes.func,
-  isExpense: PropTypes.bool,
-  setIsExpense: PropTypes.func,
   handleCancel: PropTypes.func,
 };

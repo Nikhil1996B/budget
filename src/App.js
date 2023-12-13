@@ -1,5 +1,4 @@
-import { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { Container } from "semantic-ui-react";
 import DisplayBalance from "./components/DisplayBalance";
 import DisplayBalances from "./components/DisplayBalances";
@@ -8,72 +7,29 @@ import MainHeader from "./components/MainHeader";
 import ModelEdit from "./components/ModelEdit";
 import NewEntryForm from "./components/NewEntryForm";
 import "./styles.css";
-import * as actions from "./actions";
+import useEntryDetails from "./hooks/useEntryDetails";
 
 export default function App() {
-  const dispatch = useDispatch();
-  const { entries } = useSelector((state) => state);
-
-  // modal entries
-  const [description, setDescription] = useState("");
-  const [value, setValue] = useState("");
-  const [isExpense, setIsExpense] = useState(true);
-  const [editingForEntry, setEditingForEntry] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
-  const [totalIncome, setTotalIncome] = useState(0);
-  const [totalExpense, setTotalExpense] = useState(0);
-  const handleModelClose = () => setIsOpen(false);
-  const onModelOpen = () => setIsOpen(true);
-
-  const deleteEntry = (id) => {
-    if (id) {
-      const findEntryIdToBeRemoved = entries.find(
-        (entry) => entry.id === id,
-      ).id;
-      dispatch(actions.removeEntriesRedux(findEntryIdToBeRemoved));
-    }
-  };
-
-  const handleReset = () => {
-    setDescription("");
-    setValue("");
-    setIsExpense(true);
-  };
-
-  const handleEditMode = (id) => {
-    if (id) {
-      const entry = entries.find((entry) => entry.id === id);
-      setDescription(entry.description);
-      setValue(entry.value);
-      setIsExpense(entry.isExpensive);
-      setEditingForEntry(id);
-    }
-  };
-
-  const editEntry = () => {
-    if (editingForEntry) {
-      const updatedEntry = {
-        description,
-        value,
-        isExpense,
-        id: editingForEntry,
-      };
-      // const updatedEntries = entries.map((entry) =>
-      //   entry.id === editingForEntry ? updatedEntry : entry,
-      // );
-      // setEntries(updatedEntries);
-      dispatch(actions.updateEntriesRedux(editingForEntry, updatedEntry));
-      handleModelClose();
-      handleReset();
-    }
-  };
-
-  const addEntry = ({ description, value }) => {
-    const newEntry = { description, value, id: entries.length + 1 };
-    dispatch(actions.addEntriesRedux(newEntry));
-    // setEntries((prevEntries) => [...prevEntries, newEntry]);
-  };
-
+  const {
+    isOpen,
+    editEntry,
+    handleEditMode,
+    deleteEntry,
+    totalIncome,
+    setTotalIncome,
+    totalExpense,
+    setTotalExpense,
+    entries,
+    handleModelClose,
+    description,
+    setDescription,
+    value,
+    setValue,
+    isExpense,
+    setIsExpense,
+    addEntry,
+    onModelOpen,
+  } = useEntryDetails();
   useEffect(() => {
     let totalIncome = 0;
     let totalExpense = 0;
@@ -87,7 +43,6 @@ export default function App() {
     setTotalIncome(totalIncome);
     setTotalExpense(totalExpense);
   }, [entries]);
-
   return (
     <>
       <Container>
@@ -115,29 +70,30 @@ export default function App() {
         {/* Form to add new entry */}
         <MainHeader title={"Add new transaction"} type="h3" />
         <NewEntryForm
-          addEntry={addEntry}
           {...{
-            description,
             setDescription,
             value,
             setValue,
             isExpense,
             setIsExpense,
+            addEntry,
+            description,
           }}
         />
       </Container>
       <ModelEdit
         isOpen={isOpen}
+        handleEntryEdit={editEntry}
+        handleModelClose={handleModelClose}
         {...{
-          description,
           setDescription,
           value,
           setValue,
           isExpense,
           setIsExpense,
+          addEntry,
+          description,
         }}
-        handleEntryEdit={editEntry}
-        handleModelClose={handleModelClose}
       />
     </>
   );

@@ -1,19 +1,20 @@
 import { Grid, Icon, Segment } from "semantic-ui-react";
 import PropTypes from "prop-types";
-
+/* eslint react/prop-types: 0 */
 export default function EntryLines({
-  description = "",
-  value = "",
-  isExpense = false,
-  deleteEntry,
-  id,
-  onModelOpen,
   handleEditMode,
+  isExpense,
+  description,
+  value,
+  id,
+  deleteEntry,
+  onModelOpen,
 }) {
   const handleModalOpen = () => {
     onModelOpen();
     handleEditMode(id);
   };
+
   return (
     <>
       <Segment color={isExpense ? "red" : "green"}>

@@ -1,11 +1,11 @@
 import { Checkbox, Form, Segment } from "semantic-ui-react";
-import PropTypes from "prop-types";
+/* eslint react/prop-types: 0 */
 
 export default function EntryForm({
   description,
+  setDescription,
   value,
   setValue,
-  setDescription,
   isExpense,
   setIsExpense,
 }) {
@@ -41,12 +41,3 @@ export default function EntryForm({
     </>
   );
 }
-
-EntryForm.propTypes = {
-  description: PropTypes.string,
-  setDescription: PropTypes.func,
-  value: PropTypes.number,
-  setValue: PropTypes.func,
-  isExpense: PropTypes.bool,
-  setIsExpense: PropTypes.func,
-};
