@@ -38,7 +38,7 @@ export default function EntryLines({
 
 EntryLines.propTypes = {
   description: PropTypes.string,
-  value: PropTypes.string,
+  value: PropTypes.number,
   isExpense: PropTypes.bool | undefined,
   deleteEntry: PropTypes.func,
   onModelOpen: PropTypes.func,

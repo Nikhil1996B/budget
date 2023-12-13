@@ -45,7 +45,7 @@ export default function EntryForm({
 EntryForm.propTypes = {
   description: PropTypes.string,
   setDescription: PropTypes.func,
-  value: PropTypes.string,
+  value: PropTypes.number,
   setValue: PropTypes.func,
   isExpense: PropTypes.bool,
   setIsExpense: PropTypes.func,

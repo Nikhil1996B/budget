@@ -1,1 +1,5 @@
-export { addEntriesRedux, removeEntriesRedux } from "./entries";
+export {
+  addEntriesRedux,
+  removeEntriesRedux,
+  updateEntriesRedux,
+} from "./entries";
