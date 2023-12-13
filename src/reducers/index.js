@@ -1,3 +1,3 @@
 import entriesReducer from "./entries";
-
-export { entriesReducer };
+import modalReducer from "./modal";
+export { entriesReducer, modalReducer };

@@ -6,17 +6,17 @@ import { v4 as uuidv4 } from "uuid";
 export default function useEntryDetails() {
   const dispatch = useDispatch();
   const entries = useSelector((state) => state.entries);
+  const isOpen = useSelector((state) => state.modal.isOpen);
 
   // modal entries
   const [description, setDescription] = useState("");
   const [value, setValue] = useState("");
   const [isExpense, setIsExpense] = useState(true);
   const [editingForEntry, setEditingForEntry] = useState(null);
-  const [isOpen, setIsOpen] = useState(false);
   const [totalIncome, setTotalIncome] = useState(0);
   const [totalExpense, setTotalExpense] = useState(0);
-  const handleModelClose = () => setIsOpen(false);
-  const onModelOpen = () => setIsOpen(true);
+  const onModelOpen = () => dispatch(actions.openModalRedux());
+  const handleModelClose = () => dispatch(actions.closeModalRedux());
   const deleteEntry = (id) => {
     if (id) {
       const findEntryIdToBeRemoved = entries.find(
@@ -80,5 +80,6 @@ export default function useEntryDetails() {
     setValue,
     isExpense,
     setIsExpense,
+    handleModelClose,
   };
 }
