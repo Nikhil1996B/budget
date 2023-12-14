@@ -1,4 +1,13 @@
-import { take, put, delay, call } from "redux-saga/effects";
+import {
+  take,
+  put,
+  delay,
+  call,
+  takeEvery,
+  fork,
+  cancelled,
+  cancel,
+} from "redux-saga/effects";
 
 function double(number) {
   return number * 2;
@@ -16,9 +25,48 @@ export function* testSaga() {
   }
 }
 
-export function* dispatchTest() {
+export function* testSagaTakeEveryProcess({ payload }) {
+  console.log(`Starting the process for index ${payload}`);
+  yield delay(3000);
+  console.log(`Ending the process for index ${payload}`);
+}
+
+export function* testTakeEvery() {
+  const { payload } = yield takeEvery(
+    "TEST_MESSAGE_3",
+    testSagaTakeEveryProcess,
+  );
+  console.log(`Finish takeEvery for index ${payload}`);
+}
+
+function* infiniteSaga() {
+  console.log("Starting infinite saga");
   while (true) {
-    yield delay(1000);
-    yield put({ type: "TEST_MESSAGE", payload: 1000 });
+    try {
+      console.log("inside infinite loop");
+      yield delay(500);
+    } catch (error) {
+      console.log(error + "failed");
+    } finally {
+      console.log("The fork was cancelled? ", cancelled);
+    }
   }
+  console.log("Ending infinite saga");
+}
+
+// CANCEL and CANCELLED example
+export function* testSagaCancelled() {
+  yield take("TEST_MESSAGE_4");
+  const handleCancel = yield fork(infiniteSaga);
+  yield delay(3000);
+  yield cancel(handleCancel);
+}
+
+export function* dispatchTest() {
+  yield delay(1000);
+  yield put({ type: "TEST_MESSAGE_4", payload: 1 });
+  // while (true) {
+  //   yield delay(1000);
+  //   yield put({ type: "TEST_MESSAGE_4", payload: 1000 });
+  // }
 }

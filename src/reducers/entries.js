@@ -16,7 +16,9 @@ export default (state = initialEntries, action) => {
       return action.payload;
     case types.POPULATE_ENTRY_DETAILS:
       newEntries = state.map((entry) =>
-        entry.id === action.payload.id ? action.payload.entry : entry,
+        entry.id === action.payload.id
+          ? { ...entry, ...action.payload.entry }
+          : entry,
       );
       return newEntries;
     default:
