@@ -7,6 +7,7 @@ import {
   fork,
   cancelled,
   cancel,
+  takeLatest,
 } from "redux-saga/effects";
 
 function double(number) {
@@ -41,20 +42,22 @@ export function* testTakeEvery() {
 
 function* infiniteSaga() {
   console.log("Starting infinite saga");
+  let index = 0;
   while (true) {
+    index++;
     try {
-      console.log("inside infinite loop");
+      console.log("inside infinite loop", +index);
       yield delay(500);
     } catch (error) {
       console.log(error + "failed");
     } finally {
-      console.log("The fork was cancelled? ", cancelled);
+      console.log("The fork was cancelled? " + index, cancelled);
     }
   }
   console.log("Ending infinite saga");
 }
 
-// CANCEL and CANCELLED example
+// CANCEL and CANCELLED example with take
 export function* testSagaCancelled() {
   yield take("TEST_MESSAGE_4");
   const handleCancel = yield fork(infiniteSaga);
@@ -62,11 +65,16 @@ export function* testSagaCancelled() {
   yield cancel(handleCancel);
 }
 
+// take latest
+export function* testSagaTakeLatest() {
+  yield takeLatest("TEST_MESSAGE_5", infiniteSaga);
+}
+
 export function* dispatchTest() {
   yield delay(1000);
-  yield put({ type: "TEST_MESSAGE_4", payload: 1 });
-  // while (true) {
-  //   yield delay(1000);
-  //   yield put({ type: "TEST_MESSAGE_4", payload: 1000 });
-  // }
+  // yield put({ type: "TEST_MESSAGE_5", payload: 1 });
+  while (true) {
+    yield delay(1000);
+    yield put({ type: "TEST_MESSAGE_5", payload: 1000 });
+  }
 }
