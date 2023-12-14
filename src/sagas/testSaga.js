@@ -54,7 +54,6 @@ function* infiniteSaga() {
       console.log("The fork was cancelled? " + index, cancelled);
     }
   }
-  console.log("Ending infinite saga");
 }
 
 // CANCEL and CANCELLED example with take

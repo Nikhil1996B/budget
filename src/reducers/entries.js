@@ -2,9 +2,9 @@ import { types } from "../actions";
 export default (state = initialEntries, action) => {
   let newEntries;
   switch (action.type) {
-    case types.ADD_ENTRY:
+    case types.ADD_ENTRY_RESULT:
       return [...state, action.payload];
-    case types.REMOVE_ENTRY:
+    case types.REMOVE_ENTRY_RESULT:
       newEntries = state.filter((entry) => entry.id !== action.payload.id);
       return newEntries;
     case types.UPDATE_ENTRY:
